@@ -1,0 +1,36 @@
+@html.extend('layout', function(model) {
+    @html.block('content', function(model) {
+      <div class="col-lg-3 col-md-6">
+          <div class="footer_links">
+              <h3 class="text-dark">Inscription</h3>
+              <form action="index.html">
+                  <fieldset>
+                    <div class="field">
+                        <input type="text" name="nom" placeholder="Votre nom" required="" />
+                    </div>
+                    <div class="field">
+                        <input type="text" name="prenom" placeholder="Votre prenom" required="" />
+                    </div> 
+                    <div class="field">
+                          <input type="email" name="email" placeholder="Adresse email" required="" />
+                      </div>
+                      <div class="field">
+                          <input type="password" name="password" placeholder="Mot de passe" required="" />
+                      </div>
+                      <div class="field">
+                        <input type="password" name="cpassword" placeholder="Confirmez le mot de passe" required="" />
+                    </div>
+                      <div class="field">
+                          <div class="center">
+                              <button class="reply_bt">S'inscrire</button>
+                          </div>
+                      </div>
+                  </fieldset>
+              </form>
+          </div>
+      </div>
+  
+      
+    })
+  })
+  
