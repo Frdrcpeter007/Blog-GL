@@ -23,55 +23,62 @@ module.exports = {
      */
     register(req, res) {
         try {
-            accountAlreadyExists(req.body, (isTrue, message, result) => {
-                if (isTrue) {
-                        var clearPswd = `BLOG${req.body.password}GL`;
-
-                        bcrypt.hash(clearPswd, 10, (err, hash) => {
-                            if (err) {
-                                res.status(200).send({
-                                    state: false,
-                                    message: "Une erreur est survenue lors du cryptage de mot de passe : " + err
-                                })
-                            } else {
-                                var entity = require('./entities/Users').Users();
-
-                                entity.prenom = req.body.prenom;
-                                entity.nom = req.body.nom;
-                                entity.email = req.body.email;
-                                entity.password = hash;
-
-                                collection.value.insertOne(entity, (err, result) => {
-                                    if (err) {
-                                        res.status(200).send({
-                                            state: false,
-                                            message: "Une erreur est survenue lors de l'inscription du client: " + err
-                                        })
-                                    } else {
-                                        if (result) {
-                                            res.status(201).send({
-                                                state: true,
-                                                message: "Votre compte a été crée avec succès",
-                                                result: result.ops[0]
-                                            })
-                                        } else {
+            if (req.body.password == req.body.cpassword) {
+                accountAlreadyExists(req.body, (isTrue, message, result) => {
+                    if (isTrue) {
+                            var clearPswd = `BLOG${req.body.password}GL`;
+    
+                            bcrypt.hash(clearPswd, 10, (err, hash) => {
+                                if (err) {
+                                    res.status(200).send({
+                                        state: false,
+                                        message: "Une erreur est survenue lors du cryptage de mot de passe : " + err
+                                    })
+                                } else {
+                                    var entity = require('./entities/Users').Users();
+    
+                                    entity.prenom = req.body.prenom;
+                                    entity.nom = req.body.nom;
+                                    entity.email = req.body.email;
+                                    entity.password = hash;
+    
+                                    collection.value.insertOne(entity, (err, result) => {
+                                        if (err) {
                                             res.status(200).send({
                                                 state: false,
-                                                message: "Aucun enreg."
+                                                message: "Une erreur est survenue lors de l'inscription du client: " + err
                                             })
+                                        } else {
+                                            if (result) {
+                                                res.status(201).send({
+                                                    state: true,
+                                                    message: "Votre compte a été crée avec succès",
+                                                    result: result.ops[0]
+                                                })
+                                            } else {
+                                                res.status(200).send({
+                                                    state: false,
+                                                    message: "Aucun enreg."
+                                                })
+                                            }
                                         }
-                                    }
-                                })
-                            }
+                                    })
+                                }
+                            })
+                        
+                    } else {
+                        res.status(200).send({
+                            state: false,
+                            message: message
                         })
-                    
-                } else {
-                    res.status(200).send({
-                        state: false,
-                        message: message
-                    })
-                }
-            })
+                    }
+                })
+            } else {
+                res.status(200).send({
+                    state: false,
+                    message: "Les deux mot de passe ne correspondent pas !"
+                })
+            }
         } catch (exception) {
             res.status(200).send({
                 state: false,

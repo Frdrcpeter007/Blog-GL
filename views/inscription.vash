@@ -3,26 +3,26 @@
       <div class="col-lg-3 col-md-6">
           <div class="footer_links">
               <h3 class="text-dark">Inscription</h3>
-              <form action="index.html">
+              <form id="registerUsers">
                   <fieldset>
                     <div class="field">
-                        <input type="text" name="nom" placeholder="Votre nom" required="" />
+                        <input type="text" name="nom" placeholder="Votre nom" required />
                     </div>
                     <div class="field">
-                        <input type="text" name="prenom" placeholder="Votre prenom" required="" />
+                        <input type="text" name="prenom" placeholder="Votre prenom" required />
                     </div> 
                     <div class="field">
-                          <input type="email" name="email" placeholder="Adresse email" required="" />
+                          <input type="email" name="email" placeholder="Adresse email" required/>
                       </div>
                       <div class="field">
-                          <input type="password" name="password" placeholder="Mot de passe" required="" />
+                          <input type="password" name="password" placeholder="Mot de passe" required minlength="6"/>
                       </div>
                       <div class="field">
-                        <input type="password" name="cpassword" placeholder="Confirmez le mot de passe" required="" />
+                        <input type="password" name="cpassword" placeholder="Confirmez le mot de passe" required />
                     </div>
                       <div class="field">
                           <div class="center">
-                              <button class="reply_bt">S'inscrire</button>
+                              <button class="reply_bt" form="registerUsers" id="btn-registerUsers">S'inscrire</button>
                           </div>
                       </div>
                   </fieldset>
